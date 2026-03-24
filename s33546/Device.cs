@@ -8,9 +8,11 @@ public abstract class Device
     public int Id {get; private set;}
     public string Name {get; set;}
     
-    protected  Device(string name)
+    public string Model {get; set;}
+    protected  Device(string name, string model)
     {
         Id = _nextId++;
         Name = name;
+        Model = model;
     }
 }

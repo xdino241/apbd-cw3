@@ -2,16 +2,13 @@
 
 public class Camera : Device
 {
-    public Camera(string model,double megapixels, int opticalZoom) : base("Camera")
+    public Camera(string model,double megapixels, int opticalZoom) : base("Camera", model)
     {
-        Model = model;
         Megapixels = megapixels;
         OpticalZoom = opticalZoom;
     }
 
     public double Megapixels{get; set;}
     public int OpticalZoom {get; set;}
-    
-    public string Model {get; set;}
     
 }
