@@ -88,6 +88,15 @@ public class RentalService
     public void ShowRentedDevices()
     {
         Console.WriteLine("WYPOŻYCZONE SPRZĘTY: ");
+        if (rentedDevices.Count == 0)
+        {
+            Console.WriteLine("Wszystko jest na stanie, nic nie jest wypożyczone");
+        }
+        var rented =  devicesToRent.Where(d => !d.IsAvailable).ToList();
+        foreach (var device in rented)
+        {
+            Console.WriteLine("- " + device.Name + " " +  device.Model);
+        }
     }
     
 }

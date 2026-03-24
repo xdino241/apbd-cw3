@@ -50,6 +50,9 @@ service.RentDevice(student,camera4,DateTime.Now.AddDays(-20), DateTime.Now.AddDa
 //BŁĄD
 service.RentDevice(student,projector1,DateTime.Now, DateTime.Now.AddDays(1));
 
+service.ShowAvaibleDevices();
+service.ShowRentedDevices();
+
 //Usuwanie wypożyczenia, które jest po terminie
 service.ReturnDevice(camera4);
 
@@ -58,4 +61,7 @@ service.ReturnDevice(camera3);
 
 //BŁĄD
 service.ReturnDevice(camera4);
+
+service.ShowAvaibleDevices();
+service.ShowRentedDevices();
 
