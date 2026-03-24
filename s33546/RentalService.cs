@@ -4,6 +4,7 @@ public class RentalService
 {
     private List<Device> devicesToRent = new List<Device>();
     private List<Rental> rentedDevices = new List<Rental>();
+    private List<Rental> rentalHistory = new List<Rental>();
 
     public void AddDevice(Device device)
     {
@@ -30,6 +31,44 @@ public class RentalService
         Console.WriteLine("Wypożyczono: " + device.Model + ", osobie: " + user.FirstName + " " + user.LastName );
     }
 
+    public void ReturnDevice(Device device)
+    {
+        Rental rent = null;
+        foreach (var rental in rentedDevices)
+        {
+            if (rental.RentedDevice == device)
+            {
+                rent = rental;
+                break;
+            }
+        }
+        if (rent == null)
+        {
+            Console.WriteLine("BŁĄD: Nie znaleziono takiego wypożyczenia w systemie.");
+            return;
+        }
+        rent.ReturnDate = DateTime.Now;
+        rent.RentedDevice.IsAvailable = true;
+
+        var returnDate = rent.ReturnDate.Value.Date;
+        var plannedReturnDate = rent.DueToDate.Date;
+        if (returnDate <= plannedReturnDate)
+        {
+            rent.ReturnFee = 0;
+            Console.WriteLine("Sprzęt został oddany w terminie");
+        }
+        else
+        {
+            int daysAfterDeadline = (returnDate - plannedReturnDate).Days;
+            float fee = daysAfterDeadline * 0.50f;
+            rent.ReturnFee = fee;
+            Console.WriteLine("Nie oddano przedmiotu w terminie, spóźniono się o: " + daysAfterDeadline);
+            Console.WriteLine("Kara wynosi: " + fee + " PLN");
+        }
+        rentedDevices.Remove(rent);
+        rentalHistory.Add(rent);
+    }
+
     public void ShowAvaibleDevices()
     {   
         Console.WriteLine("DOSTĘPNE SPRZĘTY: ");
@@ -44,6 +83,11 @@ public class RentalService
         {
             Console.WriteLine("- " + device.Name + " " +  device.Model);
         }
+    }
+
+    public void ShowRentedDevices()
+    {
+        Console.WriteLine("WYPOŻYCZONE SPRZĘTY: ");
     }
     
 }
