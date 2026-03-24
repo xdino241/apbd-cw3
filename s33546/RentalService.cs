@@ -29,5 +29,21 @@ public class RentalService
         rentedDevices.Add(new Rental(user, device, dateFrom, dateTo));
         Console.WriteLine("Wypożyczono: " + device.Model + ", osobie: " + user.FirstName + " " + user.LastName );
     }
+
+    public void ShowAvaibleDevices()
+    {   
+        Console.WriteLine("DOSTĘPNE SPRZĘTY: ");
+        var avaibleDevices =  devicesToRent.Where(d => d.IsAvailable).ToList();
+        if (avaibleDevices.Count == 0)
+        {
+            Console.WriteLine("Brak atualnie sprzętu do wypożyczenia");
+            return;
+        }
+
+        foreach (var device in avaibleDevices)
+        {
+            Console.WriteLine("- " + device.Name + " " +  device.Model);
+        }
+    }
     
 }
