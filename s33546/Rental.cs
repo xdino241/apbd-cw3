@@ -6,6 +6,8 @@ public class Rental
     public Device RentedDevice { get; set; }
     public DateTime RentedDate { get; set; }
     public DateTime DueToDate { get; set; }
+    public DateTime? ReturnDate { get; set; }
+    public float ReturnFee { get; set; }
     
     public Rental (User user, Device device, DateTime date,  DateTime dueToDate)
     {
